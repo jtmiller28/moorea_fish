@@ -76,6 +76,7 @@ ggplot(stegastes_size_clean, aes(x = Year, y = count,)) +
 ```
 #Lets divide it up by site and look at these a bit closer, also divide it up by habitat of fringing reef, forereef, and backreef. 
 
+##Site 1
 ```{r}
 stegastes_size_clean_1 <- stegastes_size_clean %>% 
   filter(Site == "1")
@@ -109,3 +110,183 @@ ggplot(stegastes_size_clean_1_FR, aes(x = Year, y = count,)) +
    scale_color_brewer(palette="Paired") +
   theme_minimal()
 ```
+##Site 2
+```{r}
+stegastes_size_clean_2 <- stegastes_size_clean %>% 
+  filter(Site == "2")
+
+ggplot(stegastes_size_clean_2, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() +  scale_color_manual(values=c("Green", "Blue")) +ggtitle("Stegastes Count for Site 2") +
+  facet_wrap(~Habitat)
+
+stegastes_size_clean_2_BA <- stegastes_size_clean_2 %>% 
+  filter(Habitat == "BA")
+stegastes_size_clean_2_FO <- stegastes_size_clean_2 %>% 
+  filter(Habitat == "FO")
+stegastes_size_clean_2_FR <- stegastes_size_clean_2 %>% 
+  filter(Habitat == "FR")
+
+ggplot(stegastes_size_clean_2_BA, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() +  scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in BackReef Site 2")
+
+ggplot(stegastes_size_clean_2_FO, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()+  scale_color_manual(values=c("Green")) + ggtitle ("Stegastes Count in ForeReef Site 2")
+
+ggplot(stegastes_size_clean_2_FR, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()+  scale_color_manual(values=c( "Green", "Blue")) + ggtitle ("Stegastes Count in FringeReef Site 2")
+```
+##Site 3
+```{r}
+stegastes_size_clean_3 <- stegastes_size_clean %>% 
+  filter(Site == "3")
+
+ggplot(stegastes_size_clean_3, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() +  scale_color_manual(values=c("Green", "Blue")) +ggtitle("Stegastes Count for Site 3")
+
+stegastes_size_clean_3_BA <- stegastes_size_clean_3 %>% 
+  filter(Habitat == "BA")
+stegastes_size_clean_3_FO <- stegastes_size_clean_3 %>% 
+  filter(Habitat == "FO")
+stegastes_size_clean_3_FR <- stegastes_size_clean_3 %>% 
+  filter(Habitat == "FR")
+
+ggplot(stegastes_size_clean_3_BA, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() +  scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in BackReef Site 3")
+
+ggplot(stegastes_size_clean_3_FO, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()+  scale_color_manual(values=c("Green")) + ggtitle ("Stegastes Count in ForeReef Site 3")
+
+ggplot(stegastes_size_clean_3_FR, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()+  scale_color_manual(values=c("Blue")) + ggtitle ("Stegastes Count in FringeReef Site 3")
+```
+##Site 4
+```{r}
+stegastes_size_clean_4 <- stegastes_size_clean %>% 
+  filter(Site == "4")
+
+ggplot(stegastes_size_clean_4, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle("Stegastes Count site 4") 
+
+stegastes_size_clean_4_BA <- stegastes_size_clean_4 %>% 
+  filter(Habitat == "BA")
+stegastes_size_clean_4_FO <- stegastes_size_clean_4 %>% 
+  filter(Habitat == "FO")
+stegastes_size_clean_4_FR <- stegastes_size_clean_4 %>% 
+  filter(Habitat == "FR")
+
+ggplot(stegastes_size_clean_4_BA, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() +  scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in BackReef Site 4")
+
+ggplot(stegastes_size_clean_4_FO, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in ForeReef Site 4")
+
+ggplot(stegastes_size_clean_4_FR, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in FringingReef Site 4")
+```
+
+##Site 5
+```{r}
+stegastes_size_clean_5 <- stegastes_size_clean %>% 
+  filter(Site == "5")
+
+ggplot(stegastes_size_clean_5, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() +  scale_color_manual(values=c("Green", "Blue")) + ggtitle("Stegastes Count Site 5")
+
+stegastes_size_clean_5_BA <- stegastes_size_clean_5 %>% 
+  filter(Habitat == "BA")
+stegastes_size_clean_5_FO <- stegastes_size_clean_5 %>% 
+  filter(Habitat == "FO")
+stegastes_size_clean_5_FR <- stegastes_size_clean_5 %>% 
+  filter(Habitat == "FR")
+
+ggplot(stegastes_size_clean_5_BA, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in BackReef Site 5")
+
+ggplot(stegastes_size_clean_5_FO, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in ForeReef Site 5")
+
+ggplot(stegastes_size_clean_5_FR, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle ("Stegastes Count in FringingReef Site 5")
+```
+
+##Site 6
+```{r}
+stegastes_size_clean_6 <- stegastes_size_clean %>% 
+  filter(Site == "6")
+
+ggplot(stegastes_size_clean_6, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle("Stegastes Count Site 6") +
+  facet_wrap(~Habitat)
+
+stegastes_size_clean_6_BA <- stegastes_size_clean_6 %>% 
+  filter(Habitat == "BA")
+stegastes_size_clean_6_FO <- stegastes_size_clean_6 %>% 
+  filter(Habitat == "FO")
+stegastes_size_clean_6_FR <- stegastes_size_clean_6 %>% 
+  filter(Habitat == "FR")
+
+ggplot(stegastes_size_clean_6_BA, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()
+
+ggplot(stegastes_size_clean_6_FO, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()
+
+ggplot(stegastes_size_clean_6_FR, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()
+```
+
+
+
+
+
+##Does biomass differ between habitat type/species?
+```{r}
+ggplot(stegastes_size_clean_1, aes(x = Year, y = mean_biomass,)) + 
+  geom_boxplot(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle("Stegastes Mean Biomass for all Sites over time") +
+  facet_wrap(~Habitat,)
+```
+###Next questions: Does S. fasciolatus and S. nigricans utilize different types of coral gardens? Is one more aggressive towards intruders then the others?
+
+#Data Cited: Brooks, A of Moorea Coral Reef LTER. 2021. MCR LTER: Coral Reef: Long-term Population and Community Dynamics: Fishes, ongoing since 2005. knb-lter-mcr.6.58 doi:10.6073/pasta/a667eed481d9743c69c4209f6479acb4
