@@ -1,5 +1,5 @@
 ---
-title: "Stegastes_Visualization"
+title: "stegastes_visualization"
 author: "JT_Miller"
 date: "5/26/2021"
 output: html_document
@@ -9,3 +9,103 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(psych)
+library(corrplot)
+library(RColorBrewer)
+```
+
+
+
+```{r}
+moorea_fish <- read.csv("MCR_LTER_Annual_Fish_Survey_20210108.csv") #Loading in the data from the moorea LTER
+```
+
+
+```{r}
+stegastes <- dplyr::filter(moorea_fish, Taxonomy %in% c("Stegastes punctatus" , "Stegastes nigricans" , "Stegastes fasciolatus" , "Stegastes albifasciatus")) #Selecting specific species that start with the genus Stegastes
+```
+
+#We want to look at the population over a time series, so lets clean up the data and plot it in regards to size per time point
+
+```{r}
+#make a new dataset that only has stegastes of particular interest. These two species seem to show up the most in comparison to the others.  
+stegastes1 <- subset(moorea_fish, Taxonomy == "Stegastes nigricans" | Taxonomy == "Stegastes fasciolatus" )
+
+#change all of the N/A to 0
+stegastes1$Biomass[is.na(stegastes1$Biomass)] <- 0
+
+#summarize count by year, site, Taxonomy, and habitat type
+stegastes_sum <- stegastes1 %>%
+  dplyr:: group_by(Year, Site, Taxonomy, Habitat) %>% 
+  dplyr:: summarise(abundance = sum(Count,  na.rm=TRUE)) 
+                    
+#make new data set that doesn't have 0's so we can take an average size
+
+stegastes_s <- subset(moorea_fish, Taxonomy =="Stegastes nigricans" | Taxonomy == "Stegastes fasciolatus" )
+stegastes_clean <- stegastes_s %>% drop_na(Biomass)
+
+#summarize average size by year, Taxonomy, site and habitat
+stegastes_size <- stegastes_clean %>%
+  dplyr:: group_by(Year, Taxonomy, Site, Habitat) %>% 
+  dplyr:: summarise(mean_biomass = mean(Biomass,  na.rm=TRUE),
+                     N = length(Biomass),
+                    SE = sd(Biomass, na.rm=TRUE)/sqrt(N),
+                    count = sum(Count, na.rm=TRUE)) 
+stegastes_size_clean <- stegastes_size %>% drop_na(SE)
+
+```
+```{r}
+stegastes_size_clean$Year <- as.numeric(as.character(stegastes_size_clean$Year)) #Had to do this to fix the graph. 
+
+```
+
+#Looking at a plot of the populations of stegastes through time divided by site. 
+```{r}
+
+ggplot(stegastes_size_clean, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() +
+  facet_wrap( ~ Site) 
+#str(stegastes_size_clean)
+```
+#Lets divide it up by site and look at these a bit closer, also divide it up by habitat of fringing reef, forereef, and backreef. 
+
+```{r}
+stegastes_size_clean_1 <- stegastes_size_clean %>% 
+  filter(Site == "1")
+
+ggplot(stegastes_size_clean_1, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal() + scale_color_manual(values=c("Green", "Blue")) + ggtitle("Stegastes Count Site 1") +
+  facet_wrap(~Habitat)
+
+
+stegastes_size_clean_1_BA <- stegastes_size_clean_1 %>% 
+  filter(Habitat == "BA")
+stegastes_size_clean_1_FO <- stegastes_size_clean_1 %>% 
+  filter(Habitat == "FO")
+stegastes_size_clean_1_FR <- stegastes_size_clean_1 %>% 
+  filter(Habitat == "FR")
+
+ggplot(stegastes_size_clean_1_BA, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()
+
+ggplot(stegastes_size_clean_1_FO, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()
+
+ggplot(stegastes_size_clean_1_FR, aes(x = Year, y = count,)) + 
+  geom_line(aes(color = Taxonomy), size = 1) +
+   scale_color_brewer(palette="Paired") +
+  theme_minimal()
+```
